@@ -1,13 +1,13 @@
 package com.mattermost.emm
 
 
-import com.facebook.react.TurboReactPackage
+import com.facebook.react.BaseReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
 
-class EmmPackage : TurboReactPackage() {
+class EmmPackage : BaseReactPackage() {
   override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? =
     if (name == EmmModuleImpl.NAME) {
       EmmModule(reactContext)
@@ -22,7 +22,6 @@ class EmmPackage : TurboReactPackage() {
         EmmModuleImpl.NAME,
         false,
         false,
-        true,
         false,
         BuildConfig.IS_NEW_ARCHITECTURE_ENABLED
       )

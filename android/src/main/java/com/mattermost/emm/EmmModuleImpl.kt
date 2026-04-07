@@ -66,7 +66,11 @@ class EmmModuleImpl(reactApplicationContext: ReactApplicationContext) {
 
     fun handleHostResume(activity: Activity?, restrictionsReceiver: BroadcastReceiver) {
         val managed = loadManagedConfig(false)
-        activity?.registerReceiver(restrictionsReceiver, restrictionsFilter)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            activity?.registerReceiver(restrictionsReceiver, restrictionsFilter, Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            activity?.registerReceiver(restrictionsReceiver, restrictionsFilter)
+        }
         if (!equalBundles(managed, this.managedConfig)) {
             sendConfigChanged(managed)
         }
